@@ -81,15 +81,7 @@ class Program
                 Console.WriteLine("Não foi possivel deletar essa conta.");
                 Console.WriteLine("MOTIVO - Senha incorreta");
                 Console.WriteLine("---------------------------------");
-                Console.WriteLine();
-                Console.Write("Você será redirecionado ao menu principal");
-                Thread.Sleep(1000);
-                Console.Write(".");
-                Thread.Sleep(1000);
-                Console.Write(".");
-                Thread.Sleep(1000);
-                Console.Write(".");
-                Thread.Sleep(1000);
+                RedirecionarAoMenu();
                 ShowMenu();
 
             }
@@ -196,6 +188,7 @@ class Program
                     QuantiaNoBanco(saldos);
                     break;
                 case 6:
+                    ManipularConta(cpfs, titulares, saldos, senhas);
                     break;
 
             }
@@ -207,6 +200,106 @@ class Program
 
     }
 
-    
+    private static void ManipularConta(List<string> cpfs, List<string> titulares, List<double> saldos, List<string> senhas)
+    {
+        Console.Write("Digite o CPF do titular da conta: ");
+        string CpfParaManipulacao = Console.ReadLine();
+        if (cpfs.Contains(CpfParaManipulacao))
+        {
+            int indexParaManipulacao = cpfs.FindIndex(d => d == CpfParaManipulacao);
+            Console.Write("Digite sua senha para confirmar a manipulação: ");
+            string confirmacaoSenha = Console.ReadLine();
+
+            if (confirmacaoSenha != senhas[indexParaManipulacao])
+            {
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine("Não foi possivel acessar essa conta.");
+                Console.WriteLine("MOTIVO - Senha incorreta");
+                Console.WriteLine("---------------------------------");
+                RedirecionarAoMenu();           
+                ManipularConta(cpfs, titulares, saldos, senhas);
+
+            }
+            MenuManipulacao(cpfs, titulares, saldos, indexParaManipulacao);
+            
+        }
+        else
+        {
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Não foi encontrado esse CPF.");
+            Console.WriteLine();
+            Console.WriteLine("O que gostaria de fazer?");
+            Console.WriteLine("1 - Digitar novamente o CPF");
+            Console.WriteLine("2 - Voltar ao menu principal");
+            int option = int.Parse(Console.ReadLine());
+            switch (option)
+            {
+                case 1:
+                    ManipularConta(cpfs, titulares, saldos, senhas);
+                    break;
+                case 2:
+                    RedirecionarAoMenu();
+                    ShowMenu();
+                    break;
+            }
+        }
+    }
+
+    private static void MenuManipulacao(List<string> cpfs, List<string> titulares, List<double> saldos, int indexParaManipulacao)
+    {
+        Console.WriteLine("O que gostaria de fazer?");
+        Console.WriteLine("1 - Depositar");
+        Console.WriteLine("2 - Sacar");
+        Console.WriteLine("3 - Transtefir");
+        Console.WriteLine("0 - Voltar ao Menu anterior");
+        int option = int.Parse(Console.ReadLine());
+
+        switch (option)
+        {
+            case 0:
+                ShowMenu();
+                break;
+            case 1:
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine($"Nessa conta você possui R${saldos[indexParaManipulacao]:F2}");
+                Console.WriteLine();
+                Console.Write("Quando gostaria de depositar? ");
+                double quantiaDeposito = double.Parse(Console.ReadLine());
+                Console.WriteLine($"Você gostaria de depositar R${quantiaDeposito:F2}?");
+                Console.WriteLine("1 - Sim | 2 - Não ");
+                int optionConfirmacao = int.Parse(Console.ReadLine());
+                if (optionConfirmacao == 1)
+                {
+                    saldos[indexParaManipulacao] += quantiaDeposito;
+                    Console.WriteLine($"Foi depositado o valor de R${quantiaDeposito:F2} em sua conta.");
+                    Console.WriteLine($"Ara seu saldo é R${saldos[indexParaManipulacao]:F2}");
+                }
+                else
+                {
+                    RedirecionarAoMenu();
+                    MenuManipulacao(cpfs, titulares, saldos, indexParaManipulacao);
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+    }
+
+    static void RedirecionarAoMenu()
+    {
+        Console.WriteLine();
+        Console.Write("Você será redirecionado ao menu anterior");
+        Thread.Sleep(1000);
+        Console.Write(".");
+        Thread.Sleep(1000);
+        Console.Write(".");
+        Thread.Sleep(1000);
+        Console.Write(".");
+        Thread.Sleep(1000);
+        return;
+    }
 }
 
