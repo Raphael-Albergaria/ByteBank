@@ -58,6 +58,49 @@ class Program
         }
     }
 
+    static void DeletarUsuario(List<string> cpfs, List<string> titulares, List<double> saldos, List<string> senhas)
+    {
+        Console.Write("Digite seu CPF: ");
+        string cpfParaDeletar = Console.ReadLine();
+        int indexParaDeletar = cpfs.FindIndex(d => d == cpfParaDeletar);
+        if (indexParaDeletar == -1)
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Não foi possivel deletar essa conta.");
+            Console.WriteLine("MOTIVO - Não foi possivel encontrar o cpf selecionado.");
+            Console.WriteLine("---------------------------------");
+        }
+        else
+        {
+            string confirmacaoSenha = Console.ReadLine();
+
+            if (confirmacaoSenha != senhas[indexParaDeletar])
+            {
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine("Não foi possivel deletar essa conta.");
+                Console.WriteLine("MOTIVO - Senha incorreta");
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine();
+                Console.Write("Você será redirecionado ao menu principal");
+                Thread.Sleep(500);
+                Console.Write(".");
+                Thread.Sleep(500);
+                Console.Write(".");
+                Thread.Sleep(500);
+                Console.Write(".");
+                ShowMenu();
+
+            }
+            else
+            {
+                cpfs.RemoveAt(indexParaDeletar);
+                titulares.RemoveAt(indexParaDeletar);
+                saldos.RemoveAt(indexParaDeletar);
+                senhas.RemoveAt(indexParaDeletar);
+            }
+        }
+    }
+
     static void Main(string[] args)
     {
         List<string> cpfs = new List<string>();
@@ -81,6 +124,7 @@ class Program
                     RegistrarNovoUsuario(cpfs, titulares, saldos, senhas);
                     break;
                 case 2:
+                    DeletarUsuario(cpfs, titulares, saldos, senhas);
                     break;
                 case 3:
                     break;
