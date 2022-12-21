@@ -72,6 +72,7 @@ class Program
         }
         else
         {
+            Console.Write("Digite sua senha para confirmar a exclusão: ");
             string confirmacaoSenha = Console.ReadLine();
 
             if (confirmacaoSenha != senhas[indexParaDeletar])
@@ -82,12 +83,13 @@ class Program
                 Console.WriteLine("---------------------------------");
                 Console.WriteLine();
                 Console.Write("Você será redirecionado ao menu principal");
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 Console.Write(".");
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 Console.Write(".");
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 Console.Write(".");
+                Thread.Sleep(1000);
                 ShowMenu();
 
             }
@@ -105,7 +107,47 @@ class Program
     {
         for (int i = 0; i < cpfs.Count; i++)
         {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine();
             Console.WriteLine($"CPF = {cpfs[i]} | Titular = {titulares[i]} | Saldo = R${saldos[i]:f2}");
+            Console.WriteLine();
+        }
+    }
+
+    static void DetalheDeUsuario(List<string> cpfs, List<string> titulares, List<double> saldos)
+    {
+        Console.WriteLine("---------------------------------");
+        Console.Write("Digite o CPF para consulta: ");
+        string cpf = Console.ReadLine();
+        if (!cpfs.Contains(cpf))
+        {
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Não foi encontrado esse CPF.");
+            Console.WriteLine();
+            Console.WriteLine("O que gostaria de fazer?");
+            Console.WriteLine("1 - Digitar novamente o CPF");
+            Console.WriteLine("2 - Voltar ao menu principal");
+            int option = int.Parse(Console.ReadLine());
+            switch (option)
+            {
+                case 1:
+                    DetalheDeUsuario(cpfs, titulares, saldos);
+                    break;
+                case 2:
+                    ShowMenu();
+                    break;
+            }
+        }
+        else
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine();
+            int index = cpfs.FindIndex(d => d == cpf);
+            Console.WriteLine($"CPF = {cpfs[index]} | Titular = {titulares[index]} | Saldo = R${saldos[index]:f2}");
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------");
+            
         }
     }
 
@@ -138,8 +180,9 @@ class Program
                     ListarTodasAsContas(cpfs, titulares, saldos);
                     break;
                 case 4:
+                    DetalheDeUsuario(cpfs, titulares, saldos);
                     break;
-                case 5:
+                case 5:                   
                     break;
                 case 6:
                     break;
