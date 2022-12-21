@@ -101,6 +101,14 @@ class Program
         }
     }
 
+    static void ListarTodasAsContas(List<string> cpfs, List<string> titulares, List<double> saldos)
+    {
+        for (int i = 0; i < cpfs.Count; i++)
+        {
+            Console.WriteLine($"CPF = {cpfs[i]} | Titular = {titulares[i]} | Saldo = R${saldos[i]:f2}");
+        }
+    }
+
     static void Main(string[] args)
     {
         List<string> cpfs = new List<string>();
@@ -127,6 +135,7 @@ class Program
                     DeletarUsuario(cpfs, titulares, saldos, senhas);
                     break;
                 case 3:
+                    ListarTodasAsContas(cpfs, titulares, saldos);
                     break;
                 case 4:
                     break;
