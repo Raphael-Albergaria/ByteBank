@@ -16,6 +16,48 @@ class Program
         Console.Write("Digite a opção desejada: ");
     }
 
+    static void RegistrarNovoUsuario(List<string> cpfs, List<string> titulares, List<double> saldos, List<string> senhas)
+    {
+        Console.WriteLine("---------------------------------");
+        Console.Write("Digite seu CPF: ");
+        string cpf = Console.ReadLine();
+        if (cpfs.Contains(cpf))
+        {
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Esse CPF já está cadastrado.");
+            Console.WriteLine();
+            Console.WriteLine("O que gostaria de fazer?");
+            Console.WriteLine("1 - Digitar novamente seu CPF");
+            Console.WriteLine("2 - Voltar ao menu principal");
+            int option = int.Parse(Console.ReadLine());
+            switch (option)
+            {
+                case 1:
+                    RegistrarNovoUsuario(cpfs, titulares, saldos, senhas);
+                    break;
+                case 2:
+                    ShowMenu();
+                    break;
+            }
+        }
+        else
+        {
+            cpfs.Add(cpf);
+            Console.WriteLine();
+
+            Console.Write("Digite seu Nome: ");
+            titulares.Add(Console.ReadLine());
+            Console.WriteLine();
+
+            saldos.Add(0);
+
+            Console.WriteLine("Digite sua senha: ");
+            senhas.Add(Console.ReadLine());
+            Console.WriteLine();
+        }
+    }
+
     static void Main(string[] args)
     {
         List<string> cpfs = new List<string>();
@@ -36,6 +78,7 @@ class Program
                     Console.WriteLine("Estou encerrando o programa...");
                     break;
                 case 1:
+                    RegistrarNovoUsuario(cpfs, titulares, saldos, senhas);
                     break;
                 case 2:
                     break;
