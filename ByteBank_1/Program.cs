@@ -268,12 +268,12 @@ class Program
                 double quantiaDeposito = double.Parse(Console.ReadLine());
                 Console.WriteLine($"Você gostaria de depositar R${quantiaDeposito:F2}?");
                 Console.WriteLine("1 - Sim | 2 - Não ");
-                int optionConfirmacao = int.Parse(Console.ReadLine());
-                if (optionConfirmacao == 1)
+                int confirmaDeposito = int.Parse(Console.ReadLine());
+                if (confirmaDeposito == 1)
                 {
                     saldos[indexParaManipulacao] += quantiaDeposito;
                     Console.WriteLine($"Foi depositado o valor de R${quantiaDeposito:F2} em sua conta.");
-                    Console.WriteLine($"Ara seu saldo é R${saldos[indexParaManipulacao]:F2}");
+                    Console.WriteLine($"Agora seu saldo é R${saldos[indexParaManipulacao]:F2}");
                 }
                 else
                 {
@@ -282,8 +282,39 @@ class Program
                 }
                 break;
             case 2:
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine($"Nessa conta você possui R${saldos[indexParaManipulacao]:F2}");
+                Console.WriteLine();
+                Console.Write("Quando gostaria de sacar? ");
+                double quantiaSaque = double.Parse(Console.ReadLine());
+                Console.WriteLine($"Você gostaria de depositar R${quantiaSaque:F2}?");
+                Console.WriteLine("1 - Sim | 2 - Não ");
+                int confirmaSaque = int.Parse(Console.ReadLine());
+                if (confirmaSaque == 1)
+                {
+                    if (saldos[indexParaManipulacao] < quantiaSaque)
+                    {
+                        Console.WriteLine("Saldo insuficiente para completar essa oeração.");
+                        RedirecionarAoMenu();
+                        MenuManipulacao(cpfs, titulares, saldos, indexParaManipulacao);
+
+                    }
+                    else {
+                        saldos[indexParaManipulacao] -= quantiaSaque;
+                        Console.WriteLine($"Foi efetuado um saque no valor de R${quantiaSaque:F2} de sua conta.");
+                        Console.WriteLine($"Agora seu saldo é R${saldos[indexParaManipulacao]:F2}");
+                        RedirecionarAoMenu();
+                        ShowMenu();
+                    }
+                }
+                else
+                {
+                    RedirecionarAoMenu();
+                    MenuManipulacao(cpfs, titulares, saldos, indexParaManipulacao);
+                }
                 break;
             case 3:
+                
                 break;
         }
     }
