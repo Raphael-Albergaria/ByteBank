@@ -151,6 +151,16 @@ class Program
         }
     }
 
+    static void QuantiaNoBanco(List<double> saldos)
+    {
+        double quantia = 0;
+        for (int i = 0; i < saldos.Count; i++)
+        {
+            quantia += saldos[i];
+        }
+        Console.WriteLine($"A quantia armazenada no ByteBank é R$ {quantia:F2}");
+    }
+
     static void Main(string[] args)
     {
         List<string> cpfs = new List<string>();
@@ -182,7 +192,8 @@ class Program
                 case 4:
                     DetalheDeUsuario(cpfs, titulares, saldos);
                     break;
-                case 5:                   
+                case 5:
+                    QuantiaNoBanco(saldos);
                     break;
                 case 6:
                     break;
