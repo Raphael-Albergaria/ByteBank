@@ -6,18 +6,24 @@ class Program
 
     static void ShowMenu()
     {
-        Console.WriteLine("1 - Inserir novo usuário");
-        Console.WriteLine("2 - Deletar um usuário");
-        Console.WriteLine("3 - Listar todas as contas registradas");
-        Console.WriteLine("4 - Detalhe de um usuário");
-        Console.WriteLine("5 - Quantia armazenado no banco");
-        Console.WriteLine("6 - Manipular a conta");
-        Console.WriteLine("0 - Para sair do programa");
+        Console.WriteLine("Bem Vindo(a) ao ByteBank");
+        Console.WriteLine();
+        Console.WriteLine("Qual operação gostaria de realizar?");
+        Console.WriteLine();
+        Console.WriteLine("[1] - Inserir novo usuário");
+        Console.WriteLine("[2] - Deletar um usuário");
+        Console.WriteLine("[3] - Listar todas as contas registradas");
+        Console.WriteLine("[4] - Detalhe de um usuário");
+        Console.WriteLine("[5] - Quantia armazenado no banco");
+        Console.WriteLine("[6] - Manipular a conta");
+        Console.WriteLine("[0] - Para sair do programa");
+        Console.WriteLine();
         Console.Write("Digite a opção desejada: ");
     }
 
     static void RegistrarNovoUsuario(List<string> cpfs, List<string> titulares, List<double> saldos, List<string> senhas)
     {
+        Console.Clear();
         Console.WriteLine("---------------------------------");
         Console.Write("Digite seu CPF: ");
         string cpf = Console.ReadLine();
@@ -56,10 +62,16 @@ class Program
             senhas.Add(Console.ReadLine());
             Console.WriteLine();
         }
+        Console.Clear();
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Conta criada com sucesso");
+        Console.WriteLine("Agradecemos pela confiança!");
+        Console.WriteLine("---------------------------------");
     }
 
     static void DeletarUsuario(List<string> cpfs, List<string> titulares, List<double> saldos, List<string> senhas)
     {
+        Console.Clear();
         Console.Write("Digite seu CPF: ");
         string cpfParaDeletar = Console.ReadLine();
         int indexParaDeletar = cpfs.FindIndex(d => d == cpfParaDeletar);
@@ -94,9 +106,9 @@ class Program
             }
         }
     }
-
     static void ListarTodasAsContas(List<string> cpfs, List<string> titulares, List<double> saldos)
     {
+    Console.Clear();
         for (int i = 0; i < cpfs.Count; i++)
         {
             Console.WriteLine("---------------------------------");
@@ -108,6 +120,7 @@ class Program
 
     static void DetalheDeUsuario(List<string> cpfs, List<string> titulares, List<double> saldos)
     {
+        Console.Clear();
         Console.WriteLine("---------------------------------");
         Console.Write("Digite o CPF para consulta: ");
         string cpf = Console.ReadLine();
@@ -139,12 +152,13 @@ class Program
             Console.WriteLine($"CPF = {cpfs[index]} | Titular = {titulares[index]} | Saldo = R${saldos[index]:f2}");
             Console.WriteLine();
             Console.WriteLine("---------------------------------");
-            
+
         }
     }
 
     static void QuantiaNoBanco(List<double> saldos)
     {
+        Console.Clear();
         double quantia = 0;
         for (int i = 0; i < saldos.Count; i++)
         {
@@ -155,6 +169,7 @@ class Program
 
     private static void ManipularConta(List<string> cpfs, List<string> titulares, List<double> saldos, List<string> senhas)
     {
+        Console.Clear();
         Console.Write("Digite o CPF do titular da conta: ");
         string CpfParaManipulacao = Console.ReadLine();
         if (cpfs.Contains(CpfParaManipulacao))
@@ -201,6 +216,7 @@ class Program
 
     private static void MenuManipulacao(List<string> cpfs, List<string> titulares, List<double> saldos, int indexParaManipulacao)
     {
+        Console.Clear();
         Console.WriteLine("O que gostaria de fazer?");
         Console.WriteLine("1 - Depositar");
         Console.WriteLine("2 - Sacar");
@@ -351,33 +367,33 @@ class Program
             ShowMenu();
             option = int.Parse(Console.ReadLine());
 
-            switch (option)
-            {
-                case 0:
-                    Console.WriteLine("Estou encerrando o programa...");
-                    break;
-                case 1:
-                    RegistrarNovoUsuario(cpfs, titulares, saldos, senhas);
-                    break;
-                case 2:
-                    DeletarUsuario(cpfs, titulares, saldos, senhas);
-                    break;
-                case 3:
-                    ListarTodasAsContas(cpfs, titulares, saldos);
-                    break;
-                case 4:
-                    DetalheDeUsuario(cpfs, titulares, saldos);
-                    break;
-                case 5:
-                    QuantiaNoBanco(saldos);
-                    break;
-                case 6:
-                    ManipularConta(cpfs, titulares, saldos, senhas);
-                    break;
+                switch (option)
+                {
+                    case 0:
+                        Console.WriteLine("Estou encerrando o programa...");
+                        break;
+                    case 1:
+                        RegistrarNovoUsuario(cpfs, titulares, saldos, senhas);
+                        break;
+                    case 2:
+                        DeletarUsuario(cpfs, titulares, saldos, senhas);
+                        break;
+                    case 3:
+                        ListarTodasAsContas(cpfs, titulares, saldos);
+                        break;
+                    case 4:
+                        DetalheDeUsuario(cpfs, titulares, saldos);
+                        break;
+                    case 5:
+                        QuantiaNoBanco(saldos);
+                        break;
+                    case 6:
+                        ManipularConta(cpfs, titulares, saldos, senhas);
+                        break;
 
-            }
+                }
 
-            Console.WriteLine("-----------------");
+                Console.WriteLine("-----------------");
 
         } while (option != 0);
     }
