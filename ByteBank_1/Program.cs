@@ -14,7 +14,7 @@ class Program
         Console.WriteLine("[2] - Deletar um usuário");
         Console.WriteLine("[3] - Listar todas as contas registradas");
         Console.WriteLine("[4] - Detalhe de um usuário");
-        Console.WriteLine("[5] - Quantia armazenado no banco");
+        Console.WriteLine("[5] - Quantia armazenada no banco");
         Console.WriteLine("[6] - Manipular a conta");
         Console.WriteLine("[0] - Para sair do programa");
         Console.WriteLine();
@@ -218,10 +218,10 @@ class Program
     {
         Console.Clear();
         Console.WriteLine("O que gostaria de fazer?");
-        Console.WriteLine("1 - Depositar");
-        Console.WriteLine("2 - Sacar");
-        Console.WriteLine("3 - Transtefir");
-        Console.WriteLine("0 - Voltar ao Menu anterior");
+        Console.WriteLine("[1] - Depositar");
+        Console.WriteLine("[2] - Sacar");
+        Console.WriteLine("[3] - Transferir");
+        Console.WriteLine("[0] - Voltar ao Menu anterior");
         int option = int.Parse(Console.ReadLine());
 
         switch (option)
